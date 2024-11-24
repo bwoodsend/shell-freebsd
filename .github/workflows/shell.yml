@@ -1,7 +1,10 @@
 
 name: shell
 
-on: [push, workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      release:
 
 jobs:
   runshell:
@@ -19,6 +22,7 @@ jobs:
       id: shell
       uses: vmactions/freebsd-vm@main
       with:
+        release: ${{ inputs.release }}
         nat: |
           "8000": "80"
         envs: 'TestingDomain TEST_PREFERRED_CHAIN TEST_ACME_Server INPUT_*'
